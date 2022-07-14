@@ -10,15 +10,16 @@
   let lives = 11;
 
   const handleInput = (e) => {
-    if (word.includes(e.target.value)) {
+    const guess = e.target.value.toLowerCase() 
+
+    if (word.includes(guess)) {
       const matches = word.reduce(function (prev, curr, i) {
-        if (curr === e.target.value) prev.push(i);
+        if (curr === guess) prev.push(i);
         return prev;
       }, []);
 
       for (let i = 0; i < matches.length; i++) {
-        console.log(matches[i]);
-        holder[matches[i]] = e.target.value;
+        holder[matches[i]] = guess;
       }
 
       if (holder.filter((letter) => letter === "-").length === 0) {
@@ -46,8 +47,7 @@
     {holder.join(" ")}
   </section>
 
-
-  <input type="text" on:input={handleInput} disabled='{!playable}' placeholder="Stlačením tu začnite hádať písmená" class='guess-input'/>
+  <input type="text" on:input={handleInput} disabled='{!playable}' placeholder="Stlačením tu začnite hádať písmená" class='guess-input' autocomplete="off"/>
   <button on:click={()=>location.reload()} class="reset">Resetovať</button>
 </main>
 
